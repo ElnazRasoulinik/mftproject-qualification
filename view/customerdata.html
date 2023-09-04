@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>اطلاعات شرکت</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/all.css">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="assets/css/mytemplate.css">
+    <script src="assets/js/jquery-3.7.0.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.js"></script>
+    <script src="assets/js/all.js"></script>
+    <script src="assets/js/fontawesome.js"></script>
+    <style>
+
+        table {
+          border-collapse: collapse;
+          width: 30%;
+          margin: auto;
+          justify-content: center;
+          align-content: center;
+          background-color: lightgray;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+
+        footer {
+    position: absolute;
+    width: 100%;
+    background-color: #66ccff;
+    color: white;
+
+}
+
+</style>
+
+</head>
+<nav class="navbar navbar-expand-lg navbar-light ">
+      <a class="navbar-brand" href="/mainpage">خانه</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/calculate">محاسبه امتیاز<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/services">خدمات ثبتی</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contactus">تماس با ما</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="جستجو" aria-label="Search">
+        </form>
+      </div>
+    </nav>
+
+<body dir="rtl">
+
+<div class="container-fluid vh-100 d-flex justify-content-center align-items-center">
+        <table>
+            <form id="companyForm" action="/go_to_calculate" method="post">
+                <tr>
+                    <td>نام شرکت:</td>
+                    <td><input type="text" name="name" required></td>
+                </tr>
+                <tr>
+                    <td>شناسه ملی:</td>
+                    <td><input type="text" name="nation_code" required></td>
+                </tr>
+                <tr>
+                    <td>شماره ثبت:</td>
+                    <td><input type="text" name="registration_code" required></td>
+                </tr>
+                <tr>
+                    <td>رشته درخواستی</td>
+                    <td>
+                        <select name="subject">
+                        <option value="ساختمان">ساختمان</option>
+                        <option value="راه و ترابری">راه و ترابری</option>
+                        <option value="نفت و گاز">نفت و گاز</option>
+                        <option value="تاسیسات">تاسیسات</option>
+                        <option value="آّب و فاضلاب">آّب و فاضلاب</option>
+                        <option value="صنعت">صنعت</option>
+                        <option value="کشاورزی">کشاورزی</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>پایه</td>
+                    <td>
+                        <select name="grade">
+                        <option value=1>رتبه 1</option>
+                        <option value=2>رتبه 2</option>
+                        <option value=3>رتبه 3</option>
+                        <option value=4>رتبه 4</option>
+                        <option value=5>رتبه 5</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button type="submit">بررسی صلاحیت</button></td>
+                </tr>
+            </form>
+        </table>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                <ul class="flashes">
+                {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
+    </div>
+<footer class="text-center text-white" style="background-color: #66ccff">
+        <div class="container p-4">
+           <div class="container p-4">
+      <section class="">
+        <div class="row">
+          <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+            <div
+                 class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                 data-ripple-color="light"
+                 >
+              <img
+                   src="assets/img/5.jpg"
+                   class="w-100"
+                   width="320"
+                   height="110"
+                   />
+              <a href="#!">
+                <div
+                     class="mask"
+                     style="background-color: rgba(251, 251, 251, 0.2);"
+                     ></div>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+            <div
+                 class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                 data-ripple-color="light"
+                 >
+              <img
+                   src="assets/img/6.jpg"
+                   class="w-100"
+                   width="320"
+                   height="110"
+                   />
+              <a href="#!">
+                <div
+                     class="mask"
+                     style="background-color: rgba(251, 251, 251, 0.2);"
+                     ></div>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+            <div
+                 class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                 data-ripple-color="light"
+                 >
+              <img
+                   src="assets/img/10.jpg"
+                   class="w-100"
+                   width="320"
+                   height="110"
+                   />
+              <a href="#!">
+                <div
+                     class="mask"
+                     style="background-color: rgba(251, 251, 251, 0.2);"
+                     ></div>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+            <div
+                 class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                 data-ripple-color="light"
+                 >
+              <img
+                   src="assets/img/9.jpg"
+                   class="w-100"
+                   width="320"
+                   height="110"
+                   />
+              <a href="#!">
+                <div
+                     class="mask"
+                     style="background-color: rgba(251, 251, 251, 0.2);"
+                     ></div>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+            <div
+                 class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                 data-ripple-color="light"
+                 >
+              <img
+                   src="assets/img/7.jpg"
+                   class="w-100"
+                   width="320"
+                   height="110"
+                   />
+              <a href="#!">
+                <div
+                     class="mask"
+                     style="background-color: rgba(251, 251, 251, 0.2);"
+                     ></div>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+            <div
+                 class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                 data-ripple-color="light"
+                 >
+              <img
+                   src="assets/img/8.jpg"
+                   class="w-100"
+                   width="320"
+                   height="110"
+                   />
+              <a href="!">
+                <div
+                     class="mask"
+                     style="background-color: rgba(251, 251, 251, 0.2);"
+                     ></div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2020 Copyright:
+      <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    </div>
+        </div>
+    </footer>
+</body>
+</html>

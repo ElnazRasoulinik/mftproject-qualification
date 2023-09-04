@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>صفحه اصلی</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/all.css">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="assets/css/mytemplate.css">
+    <script src="assets/js/jquery-3.7.0.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.js"></script>
+    <script src="assets/js/all.js"></script>
+    <script src="assets/js/fontawesome.js"></script>
+    <style>
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: center;
+    }
+
+    th {
+        background-color: lightgray;
+    }
+
+  footer {
+      width: 100%;
+      background-color: #66ccff;
+      color: white;
+  }
+</style>
+</head>
+<nav class="navbar navbar-expand-lg navbar-light ">
+      <a class="navbar-brand" href="/mainpage">خانه</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/customerdata">محاسبه امتیاز<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/services">خدمات ثبتی</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contactus">تماس با ما</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="جستجو" aria-label="Search">
+        </form>
+      </div>
+    </nav>
+
+<body dir="rtl">
+
+<div class="container-fluid">
+
+    <h1>محاسبه امتیاز</h1>
+    <table id="customerdata" style="border: 1px solid black; margin: auto; width:90%; background-color: lightgray; ">
+        <thead>
+        <tr>
+            <th>نام شرکت</th>
+            <th>شناسه ملی</th>
+            <th>شماره ثبت</th>
+            <th>رشته</th>
+            <th>پایه</th>
+            <th>حذف</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ customer["name"] }}</td>
+                <td>{{ customer["nation_code"] }}</td>
+                <td>{{ customer["registration_code"] }}</td>
+                <td>{{ customer["subject"] }}</td>
+                <td>{{ customer["grade"] }}</td>
+                <td><form action="/delete_customer" method="POST">
+                    <button type="submit">حذف</button></form>
+            </tr>
+
+        </tbody>
+    </table>
+    <h2><br>هیئت مدیره</h2>
+    <form action="/save_boarding" method="POST" style="width:90%; padding: 20px;">
+        <input type="text" name="name" placeholder="نام">
+        <input type="text" name="family" placeholder="نام خانوادگی">
+        <input type="text" name="melli" placeholder="کد ملی">
+
+        <select name="grade">
+            <option value="دیپلم">دیپلم</option>
+            <option value="فوق دیپلم">فوق دیپلم</option>
+            <option value="کارشناسی">کارشناسی</option>
+            <option value="کارشناسی ارشد">کارشناسی ارشد</option>
+            <option value="دکتری">دکتری</option>
+        </select>
+
+        <select name="major">
+            <option value="عمران">عمران</option>
+            <option value="معماری">معماری</option>
+            <option value="مکانیک">مکانیک</option>
+            <option value="شهرسازی">شهرسازی</option>
+            <option value="شیمی">شیمی</option>
+            <option value="صنایع">صنایع</option>
+            <option value="فناوری اطلاعات">فناوری اطلاعات</option>
+            <option value="کامپیوتر">کامپیوتر</option>
+            <option value="مدیریت">مدیریت</option>
+            <option value="نفت">نفت</option>
+            <option value="معدن">معدن</option>
+            <option value="برق">برق</option>
+        </select>
+
+        <select name="work_years">
+            <option value="1">1سال </option>
+            <option value="2">2سال </option>
+            <option value="3">3سال </option>
+            <option value="4">4سال </option>
+            <option value="5">5سال </option>
+            <option value="6">6سال </option>
+            <option value="7">7سال </option>
+            <option value="8">8سال </option>
+            <option value="9">9سال </option>
+            <option value="10">10سال </option>
+            <option value="11">11سال </option>
+            <option value="12">12سال </option>
+            <option value="13">13سال </option>
+            <option value="14">14سال </option>
+            <option value="15">15سال </option>
+        </select>
+
+        <button type="submit">افزودن عضو</button>
+    </form>
+
+    <h2>جدول هیئت مدیره</h2>
+    <table id="boardinglist" style="border: 1px solid black; margin: auto; width:90%; background-color: lightgray; ">
+        <thead>
+        <tr>
+            <th>کد</th>
+            <th>نام</th>
+            <th>نام خانوادگی</th>
+            <th>کدملی</th>
+            <th>مقطع تحصیلی</th>
+            <th>رشته تحصیلی</th>
+            <th>سابقه</th>
+            <th>امتیاز</th>
+            <th>عملیات</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for item in boarding_list %}
+            <tr>
+                <td>{{ item[0] }}</td>
+                <td>{{ item[1] }}</td>
+                <td>{{ item[2] }}</td>
+                <td>{{ item[3] }}</td>
+                <td>{{ item[4] }}</td>
+                <td>{{ item[5] }}</td>
+                <td>{{ item[6] }}</td>
+                <td>{{ item[7] }}</td>
+                <td><form action="/delete_boarding" method="POST">
+                    <input type="hidden" name="boarding_id" value="{{ item[0] }}">
+                    <button type="submit">حذف</button>
+                </form></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <p>{{message1}}</p>
+    <p>امتیاز مورد نیاز شما:{{boarding_indicator}}</p>
+    <p>امتیاز دریافتی: {{boarding_sum}}</p>
+
+    <h2><br><br>پرسنل</h2>
+    <form action="/save_personnel" method="POST" style="width: 90%; padding: 20px " >
+        <input type="text" name="name" placeholder="نام">
+        <input type="text" name="family" placeholder="نام خانوادگی">
+        <input type="text" name="melli" placeholder="کد ملی">
+
+        <select name="grade">
+            <option value="دیپلم">دیپلم</option>
+            <option value="فوق دیپلم">فوق دیپلم</option>
+            <option value="کارشناسی">کارشناسی</option>
+            <option value="کارشناسی ارشد">کارشناسی ارشد</option>
+            <option value="دکتری">دکتری</option>
+        </select>
+
+        <select name="major">
+            <option value="عمران">عمران</option>
+            <option value="معماری">معماری</option>
+            <option value="مکانیک">مکانیک</option>
+            <option value="شهرسازی">شهرسازی</option>
+            <option value="شیمی">شیمی</option>
+            <option value="صنایع">صنایع</option>
+            <option value="فناوری اطلاعات">فناوری اطلاعات</option>
+            <option value="کامپیوتر">کامپیوتر</option>
+            <option value="مدیریت">مدیریت</option>
+            <option value="نفت">نفت</option>
+            <option value="معدن">معدن</option>
+            <option value="برق">برق</option>
+        </select>
+
+        <select name="work_years">
+            <option value="1">1سال </option>
+            <option value="2">2سال </option>
+            <option value="3">3سال </option>
+            <option value="4">4سال </option>
+            <option value="5">5سال </option>
+            <option value="6">6سال </option>
+            <option value="7">7سال </option>
+            <option value="8">8سال </option>
+            <option value="9">9سال </option>
+            <option value="10">10سال </option>
+            <option value="11">11سال </option>
+            <option value="12">12سال </option>
+            <option value="13">13سال </option>
+            <option value="14">14سال </option>
+            <option value="15">15سال </option>
+        </select>
+
+        <button type="submit">افزودن عضو</button>
+    </form>
+
+    <h2>جدول پرسنل</h2>
+    <table id="rewardinglist" style="border: 1px solid black; margin: auto; width:90%; background-color: lightgray; ">
+        <thead>
+        <tr>
+            <th>کد</th>
+            <th>نام</th>
+            <th>نام خانوادگی</th>
+            <th>کدملی</th>
+            <th>مقطع تحصیلی</th>
+            <th>رشته تحصیلی</th>
+            <th>سابقه</th>
+            <th>امتیاز</th>
+            <th>عملیات</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for item in rewarding_list %}
+            <tr>
+                <td>{{ item[0] }}</td>
+                <td>{{ item[1] }}</td>
+                <td>{{ item[2] }}</td>
+                <td>{{ item[3] }}</td>
+                <td>{{ item[4] }}</td>
+                <td>{{ item[5] }}</td>
+                <td>{{ item[6] }}</td>
+                <td>{{ item[7] }}</td>
+                <td><form action="/delete_rewarding" method="POST">
+                    <input type="hidden" name="rewarding_id" value="{{ item[0] }}">
+                    <button type="submit">حذف</button>
+                </form></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <p>{{message2}}</p>
+    <p>امتیاز مورد نیاز شما:{{rewarding_indicator}}</p>
+    <p>امتیاز دریافتی: {{rewarding_sum}}</p>
+
+    <h2><br><br>قرارداد</h2>
+    <form action="/save_contract" method="POST" style="width: 80%; padding: 20px" >
+        <input type="text" name="name" placeholder="نام">
+        <select name="subject">
+            <option value="ساختمان">ساختمان</option>
+            <option value="راه و ترابری">راه و ترابری</option>
+            <option value="تاسیسات">تاسیسات</option>
+            <option value="نفت و گاز">نفت و گاز</option>
+            <option value="کشاورزی">کشاورزی</option>
+            <option value="آب و فاضلاب">آب و فاضلاب</option>
+            <option value="صنعت">صنعت</option>
+        </select>
+
+        <select name="start_year">
+            <option value=1387>1387</option>
+            <option value=1388>1388</option>
+            <option value=1389>1389</option>
+            <option value=1390>1390</option>
+            <option value=1391>1391</option>
+            <option value=1392>1392</option>
+            <option value=1393>1393</option>
+            <option value=1394>1394</option>
+            <option value=1395>1395</option>
+            <option value=1396>1396</option>
+            <option value=1397>1397</option>
+            <option value=1398>1398</option>
+            <option value=1399>1399</option>
+            <option value=1400>1400</option>
+            <option value=1401>1401</option>
+            <option value=1402>1402</option>
+
+        </select>
+
+        <select name="end_year">
+            <option value=1387>1387</option>
+            <option value=1388>1388</option>
+            <option value=1389>1389</option>
+            <option value=1390>1390</option>
+            <option value=1391>1391</option>
+            <option value=1392>1392</option>
+            <option value=1393>1393</option>
+            <option value=1394>1394</option>
+            <option value=1395>1395</option>
+            <option value=1396>1396</option>
+            <option value=1397>1397</option>
+            <option value=1398>1398</option>
+            <option value=1399>1399</option>
+            <option value=1400>1400</option>
+            <option value=1401>1401</option>
+            <option value=1402>1402</option>
+        </select>
+
+        <input type="text" name="price" placeholder="مبلغ(میلیون ریال)">
+
+        <button type="submit">افزودن قرارداد</button>
+    </form>
+
+    <h2>جدول قرارداد</h2>
+    <table id="contractlist" style="border: 1px solid black; margin: auto; width:90%; background-color: lightgray; ">
+        <thead>
+        <tr>
+            <th>کد</th>
+            <th>نام</th>
+            <th>موضوع</th>
+            <th>سال شروع</th>
+            <th>سال پایان</th>
+            <th>مبلغ</th>
+            <th>امتیاز</th>
+            <th>عملیات</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for item in contract_list %}
+            <tr>
+                <td>{{ item[0] }}</td>
+                <td>{{ item[1] }}</td>
+                <td>{{ item[2] }}</td>
+                <td>{{ item[3] }}</td>
+                <td>{{ item[4] }}</td>
+                <td>{{ item[5] }}</td>
+                <td>{{ item[6] }}</td>
+                <td><form action="/delete_contract" method="POST">
+                    <input type="hidden" name="contract_id" value="{{ item[0] }}">
+                    <button type="submit">حذف</button>
+                </form></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <p>{{message3}}</p>
+    <p>امتیاز مورد نیاز شما:{{contract_indicator}}</p>
+    <p>امتیاز دریافتی: {{contract_sum}}</p><br>
+</div>
+
+</div>
+<footer class="text-center text-white" style="background-color: #66ccff">
+    <div class="container p-4">
+      <section class="">
+        <div class="row">
+          <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+            <div
+                 class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                 data-ripple-color="light"
+                 >
+              <img
+                   src="assets/img/5.jpg"
+                   class="w-100"
+                   width="320"
+                   height="110"
+                   />
+              <a href="#!">
+                <div
+                     class="mask"
+                     style="background-color: rgba(251, 251, 251, 0.2);"
+                     ></div>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+            <div
+                 class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                 data-ripple-color="light"
+                 >
+              <img
+                   src="assets/img/6.jpg"
+                   class="w-100"
+                   width="320"
+                   height="110"
+                   />
+              <a href="#!">
+                <div
+                     class="mask"
+                     style="background-color: rgba(251, 251, 251, 0.2);"
+                     ></div>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+            <div
+                 class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                 data-ripple-color="light"
+                 >
+              <img
+                   src="assets/img/10.jpg"
+                   class="w-100"
+                   width="320"
+                   height="110"
+                   />
+              <a href="#!">
+                <div
+                     class="mask"
+                     style="background-color: rgba(251, 251, 251, 0.2);"
+                     ></div>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+            <div
+                 class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                 data-ripple-color="light"
+                 >
+              <img
+                   src="assets/img/9.jpg"
+                   class="w-100"
+                   width="320"
+                   height="110"
+                   />
+              <a href="#!">
+                <div
+                     class="mask"
+                     style="background-color: rgba(251, 251, 251, 0.2);"
+                     ></div>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+            <div
+                 class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                 data-ripple-color="light"
+                 >
+              <img
+                   src="assets/img/7.jpg"
+                   class="w-100"
+                   width="320"
+                   height="110"
+                   />
+              <a href="#!">
+                <div
+                     class="mask"
+                     style="background-color: rgba(251, 251, 251, 0.2);"
+                     ></div>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+            <div
+                 class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                 data-ripple-color="light"
+                 >
+              <img
+                   src="assets/img/8.jpg"
+                   class="w-100"
+                   width="320"
+                   height="110"
+                   />
+              <a href="!">
+                <div
+                     class="mask"
+                     style="background-color: rgba(251, 251, 251, 0.2);"
+                     ></div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2020 Copyright:
+      <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    </div>
+
+</footer>
+
+</body>
+</html>
+
